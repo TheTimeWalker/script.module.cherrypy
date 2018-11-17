@@ -1,4 +1,7 @@
-"""Cheroot is the high-performance, pure-Python HTTP server used by CherryPy."""
+"""High-performance, pure-Python HTTP server used by CherryPy."""
+
+from __future__ import absolute_import, division, print_function
+__metaclass__ = type
 
 try:
     import pkg_resources
