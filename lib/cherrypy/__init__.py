@@ -56,11 +56,6 @@ These API's are described in the `CherryPy specification
 <https://github.com/cherrypy/cherrypy/wiki/CherryPySpec>`_.
 """
 
-try:
-    import pkg_resources
-except ImportError:
-    pass
-
 from threading import local as _local
 
 from ._cperror import (
@@ -108,10 +103,7 @@ __import__('cherrypy._cprequest')
 tree = _cptree.Tree()
 
 
-try:
-    __version__ = pkg_resources.require('cherrypy')[0].version
-except Exception:
-    __version__ = 'unknown'
+__version__ = '17.4.0'
 
 
 engine.listeners['before_request'] = set()

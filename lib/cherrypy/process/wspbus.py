@@ -61,15 +61,7 @@ the new state.::
 """
 
 import atexit
-
-try:
-    import ctypes
-except ImportError:
-    """Google AppEngine is shipped without ctypes
-
-    :seealso: http://stackoverflow.com/a/6523777/70170
-    """
-    ctypes = None
+ctypes = None
 
 import operator
 import os
