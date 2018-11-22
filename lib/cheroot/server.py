@@ -74,6 +74,7 @@ import time
 import traceback as traceback_
 import logging
 import platform
+import xbmc
 
 try:
     from functools import lru_cache
@@ -94,11 +95,16 @@ __all__ = ('HTTPRequest', 'HTTPConnection', 'HTTPServer',
            'SizeCheckWrapper', 'KnownLengthRFile', 'ChunkedRFile',
            'Gateway', 'get_ssl_adapter_class')
 
-
+"""
+Special KODI case:
+Android does not have support for grp and pwd
+But Python has issues reporting that this is running on Android (it shows as Linux2).
+We're instead using xbmc library to detect that.
+"""
 IS_WINDOWS = platform.system() == 'Windows'
+IS_ANDROID = xbmc.getCondVisibility('system.platform.linux') and xbmc.getCondVisibility('system.platform.android')
 
-
-if not IS_WINDOWS:
+if not (IS_WINDOWS or IS_ANDROID):
     import grp
     import pwd
     import struct
@@ -1371,7 +1377,7 @@ class HTTPConnection:
             RuntimeError: in case of UID/GID lookup unsupported or disabled
 
         """
-        if IS_WINDOWS:
+        if (IS_WINDOWS or IS_ANDROID):
             raise NotImplementedError(
                 'UID/GID lookup can only be done under UNIX-like OS'
             )
